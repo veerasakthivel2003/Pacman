@@ -5,51 +5,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-<body>  
-    <button onclick="ballCount()">add</button>
-    <button onclick="moveBall()">move</button>
-    <script>
-            var imgs=[]
-            var x_pos=[]
-            var y_pos=[]
-            var x_vel=[]
-            var y_vel=[]
-            var gravity=1
-        function ballCount(){
-                var img=document.createElement("img")
-                img.src="Pacman.jpg"
-                img.style.width="50px"
-                img.style.height="50px"
-                img.style.position="absolute"
-                img.style.zIndex="5"
-                ypos=Math.floor(Math.random()*600)
-                xpos=Math.floor(Math.random()*1000)
-                img.style.left=xpos+'px'
-                img.style.top=ypos+'px'
-                xvel=5
-                yvel=5
-                document.body.appendChild(img)
-                imgs.push(img)    
-                x_pos.push(xpos)
-                y_pos.push(ypos)
-                x_vel.push(xvel)
-                y_vel.push(yvel)
-     }
-function moveBall(){
-            for(i=0;i<imgs.length;i++){
-                x_pos[i]+=x_vel[i]
-                y_pos[i]+=y_vel[i]
-                if(x_pos[i] > 1300 || x_pos[i] <= 0) {
-                    x_vel[i] =-x_vel[i]*gravity
-                }
-                if(y_pos[i] > 610 || y_pos[i] <= 0) {
-                    y_vel[i] =-y_vel[i]*gravity
-                }
-                imgs[i].style.left=x_pos[i]+'px'
-                imgs[i].style.top=y_pos[i]+'px'
-            }
-            setTimeout(moveBall,20)
+<body>
+    <div id="box" style="height:500px;
+    height:300px;
+    margin-top:20px;"></div>
+<script>
+    var arr=[["./PacMan1.png","./PacMan2.png"],
+    ["./PacMan3.png","./PacMan4.png"]]
+    var img = document.createElement("img")
+    document.getElementById("box").appendChild(img);
+    var position=0;
+    var flag=0;
+    var velocity=100;
+    var direction=0;
+    function moving(){
+        img.src=arr[direction][flag];
+        if(direction===0){
+            position += velocity
+            console.log(position)
         }
-</script>
+        else{
+            position -= velocity;
+            console.log(position)
+        }
+        if(position>=screen.width || position<=0){
+            direction= 1-direction;
+        }
+        img.style.left=position+"px";
+        flag= 1-flag;
+        img.style.width="100px";
+        img.style.height="100px";
+        img.style.position="absolute";     
+    }
+    setInterval(moving,100);
+</script>    
 </body>
 </html>
